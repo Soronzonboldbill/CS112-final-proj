@@ -29,8 +29,11 @@ I think that you need to have the browser trust the mitmproxy certicate located 
 config or application directory. (.mitmproxy/[cert file]). I don't remember which cert file 
 is required to be trusted so just try them and something should work. 
 
-Then take the python files within the github repo and place them within the generated 
+Then take the python file: chatbot_addon.py within the github repo and place them within the generated 
 repo: mitmproxy/mitmproxy/addons
+
+Note: when you pull the github code, do it within another directory that is not the one generated 
+by mitmproxy!!!!!!
 
 Then run the following command: mitmproxy -s chatbot_addon.py 
 
