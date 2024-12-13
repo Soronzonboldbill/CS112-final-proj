@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<style>
+
+.LLM_container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px
+}
+
+.LLM_btn_dark {
+  padding: 15px 25px 15px 25px;
+  background-color: #101419;
+  color: white;
+  height: auto;
+  width: auto;
+  border-radius: 10px;
+  border: 4px solid #3F7CAC;
+  font-size: x-large;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+@keyframes colorSwitch {
+  0% {
+    background-color: #101419;
+    color: white;
+    border-color: #3F7CAC;
+  }
+  30% {
+    background-color: #FFFBFC;
+    color: black;
+    border-color: black;
+  }
+  80% {
+    background-color: #FFFBFC;
+    color: black;
+    border-color: black;
+  }
+  100% {
+    background-color: #101419;
+    color: white;
+    border-color: #3F7CAC;
+  }
+}
+
+.LLM_btn_dark:focus {
+  animation: colorSwitch 1s ease;
+}
+
+.LLM_chat_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: fixed;
+  top: 10px;
+  right: 15px;
+  left: 15px;
+  border: 3px solid black;
+  z-index: 10;
+  height: 400px;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.LLM_chat_container.show {
+  visibility: visible;
+  opacity: 1
+}
+
+.LLM_chat_container button {
+  position: absolute;
+  top: 5px; 
+  right: 10px;
+  background-color: black;
+  color: white;
+  outline: none;
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
+.LLM_chat_content {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.LLM_user_input {
+  width: calc(100% - 20px); 
+  margin: 10px; 
+  height: 30px;  
+  padding: 5px; 
+  background-color: #EAEAEA; 
+  border: 1px solid #ccc; 
+  font-size: medium;
+  border-radius: 5px;
+  box-sizing: border-box; 
+  position: relative;
+  bottom: 5px;
+}
+
+.LLM_chat_header {
+  font-size: xx-large; 
+  text-align: center;
+}
+
+.query_form {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+</style>
+
+<div class="LLM_container">
+
+  <div class="LLM_chat_container" id="LLM_chat_container">
+
+    <button onClick="closeLLM()">X</button>
+    <div class="LLM_chat_content">
+      <span class="LLM_chat_header">LLM Chat Bot</span>
+      <div class="LLM_chat_dynamic_content">
+        what does this look like?
+      </div>
+    </div>
+    <form id="query_form"> 
+      <input type="text" class="LLM_user_input" placeholder="What do you want to ask?" name="query" required/>
+    </form>
+
+  </div>
+  
+  <button class="LLM_btn_dark" onClick="openLLM()">Chatbot</button>
+  <button onClick="generateChat()">Generate Random String</button>
+
+</div>
+
+<script>
+  if (true) {
+    document.getElementById("LLM_chat_container").classList.add("show");
+  }
+
+  const genRandomLen = (max, min) => {
+    return Math.random() * (max - min) + min;
+  }
+
+  const generateChat = () => {
+
+    let LLM_chat_content_container = document.querySelector(".LLM_chat_dynamic_content");
+
+    if (LLM_chat_content_container) {
+
+      const random_len = genRandomLen(400, 300);
+      const random_str = createRandomString(random_len);
+ 
+      const dynamic_div = document.createElement("div");
+      dynamic_div.textContent = random_str;
+      LLM_chat_content_container.appendChild(dynamic_div);
+    }
+    
+  }
+
+  const openLLM = () => {
+    document.getElementById("LLM_chat_container").classList.add("show");
+  }
+
+  const closeLLM = () => {
+    document.getElementById("LLM_chat_container").classList.remove("show");
+  }
+
+
+  function createRandomString(length) {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let result = "";
+    const randomArray = new Uint8Array(length);
+    crypto.getRandomValues(randomArray);
+    randomArray.forEach((number) => {
+      result += chars[number % chars.length];
+    });
+    return result;
+  }
+
+/*   const api_url = "https://a061igc186.execute-api.us-east-1.amazonaws.com/dev"
+  const api_key = "x-api-key: comp112z5q0sstvs1ejt9y2rqxixxywqlm7eckwucsriwao"
+  const model_id = "4o-mini"
+
+  const query_form = document.getElementById('query_form');
+  query_form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    console.log("Submitting form to the API");
+    
+
+    const postOptions = {
+      method: "post",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": api_key,
+      },
+      body: JSON.stringify({
+        model: model_id,
+        system: "answer the question",
+        query: "What is the 2nd isomorphism theory?",
+        temperature: 0.0,
+        lastk: 1,
+        session_id: "GenericSession"
+      }),
+    };
+
+    await fetch(api_url, postOptions)
+      .then(async (response) => {
+        if (!response.ok) {
+          console.log(`Response status: ${response.status}`);
+          throw new Error("Something went wrong querying the proxy");
+        }
+
+        return await response.json();
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }); */
+</script>
+
+</html> 
+

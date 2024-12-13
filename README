@@ -1,0 +1,38 @@
+SETTING UP PAC FILE
+
+Create a file that ends with a .pac extension. There is an example of this in the repo and 
+that can be used for setup.
+
+PAC (Proxy Auto Configuration) Files are used to specify that all traffic going to a certain domain 
+must go through another source. In this case, it's the mitm proxy that was created.
+
+Assumes that the network proxy is running on port 8080. 
+
+on MacOS (unsure what the process is on Windows or linux):
+  - host this file on localhost on a port that is not 8080 (instructions below)
+  - go to settings->network->current_wifi->details->proxies->auto proxy config
+    - enter the following info into settings:
+    - URL: http:127.0.0.1:8081/wikipedia.pac
+    - press Ok
+
+serve this file using the following command: `python3 -m http.server 8081 --directory .`
+  - assumes that python is installed on the system
+  - you can also do this using node using serve or http-server.
+
+
+SETTING UP THE MITMPROXY
+
+Follow these instructions: https://github.com/mitmproxy/mitmproxy/blob/main/CONTRIBUTING.md
+up until the testing section. 
+
+I think that you need to have the browser trust the mitmproxy certicate located at it's 
+config or application directory. (.mitmproxy/[cert file]). I don't remember which cert file 
+is required to be trusted so just try them and something should work. 
+
+Then take the python files within the github repo and place them within the generated 
+repo: mitmproxy/mitmproxy/addons
+
+Then run the following command: mitmproxy -s chatbot_addon.py 
+
+if everything goes well, there should be a server serving just the .pac file and another 
+server just running the mitmproxy proxy. 

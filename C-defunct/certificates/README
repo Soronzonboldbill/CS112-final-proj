@@ -1,0 +1,7 @@
+place files here
+
+├── certificates/
+│   ├── rootCA.pem           # Root CA certificate
+│   ├── rootCA-key.pem       # Root CA private key (optional for dynamic certificates)
+│   ├── localhost.pem        # Server certificate for localhost
+│   ├── localhost-key.pem    # Server private key

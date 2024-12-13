@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.LLM_chat_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: fixed;
+  top: 10px;
+  right: 15px;
+  left: 15px;
+  border: 3px solid black;
+  z-index: 10;
+  height: 400px;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.LLM_chat_container.show {
+  visibility: visible;
+  opacity: 1
+}
+
+.LLM_chat_container button {
+  position: absolute;
+  top: 5px; 
+  right: 10px;
+  background-color: black;
+  color: white;
+  outline: none;
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
+.LLM_chat_content {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.LLM_user_input {
+  width: calc(100% - 20px); 
+  margin: 10px; 
+  height: 30px;  
+  padding: 5px; 
+  background-color: #EAEAEA; 
+  border: 1px solid #ccc; 
+  font-size: medium;
+  border-radius: 5px;
+  box-sizing: border-box; 
+  position: relative;
+  bottom: 5px;
+}
+
+.LLM_chat_header {
+  font-size: xx-large; 
+  text-align: center;
+}
+
+.LLM_chat_dynamic_content {
+	padding: 5px 150px 0 0;
+}
+
+.LLM_chat_response {
+  	padding: 5px 10px 5px 10px;
+    height: auto;
+    width: auto;
+    background-color: lightgray;
+    border: 2px black solid;
+    border-radius: 5px;
+	word-wrap: break-word; 
+    overflow-wrap: break-word; 
+    white-space: normal; 
+}
+
+</style>
+</head>
+
+<body>
+<div class="LLM_container">
+
+  <div class="LLM_chat_container show" id="LLM_chat_container">
+
+    <button onclick="closeLLM()">X</button>
+    <div class="LLM_chat_content">
+      <span class="LLM_chat_header">LLM Chat Bot</span>
+      <div class="LLM_chat_dynamic_content">      
+      <div class="LLM_chat_response">
+      uHRg91PQCjiPC3xDClHKauKbpVS1xYkCrPNsPBnaVkOzLLzKiKMBiS7z14CjK6UgW79fDHRlo3KYLCnucCaWyBisyuklmcQ2seIMAB17Dc1Gyc2SXlG2HAeUInuxW8i2RZFYHyIZYRuTusDTdBWGNezgQcVr1zPTFQ15ZKPLu85REixLbYKfqFz2SxTyxm157iJQBxzFuXeY2I7Y1Da1iDmki1fqnhC03KVMdvwejUDoCNxGNpAs2L6IPXTuBlkJs8QNSLyz5kY9vrX7V4D3f3HoBqWEB1D1BSnF29AT3fqzE0bxB87LIgnYfHwXVdzAzDyr4ZwfftF4MyoaZWcH7g1fCoGJ27zdgdgBktXe5SE2FtvkkMLkeJCANP</div></div>
+    </div>
+
+  </div>
+
+</div>
+</body>
+
+<script>
+</script> 
+</html>

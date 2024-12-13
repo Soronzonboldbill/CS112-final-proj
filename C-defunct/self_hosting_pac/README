@@ -1,0 +1,15 @@
+Purpose: contains a Proxy Auto Config (PAC) file that redirects all traffic going to 
+         some domain to go through the networks proxy 
+
+Assumes that the network proxy is running on port 8080. 
+
+on MacOS:
+  - host this file on localhost on a port that is not 8080 (instructions below)
+  - go to settings->network->current_wifi->details->proxies->auto proxy config
+    - enter the following info into settings:
+    - URL: http:127.0.0.1:8081/wikipedia.pac
+    - press Ok
+
+serve this file using the following command: `python3 -m http.server 8081 --directory .`
+  - assumes that python is installed on the system
+  - you can also do this using node using serve or http-server.

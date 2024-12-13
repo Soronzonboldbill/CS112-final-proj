@@ -1,0 +1,6 @@
+prepare certificates and make sure trusted. (should be ready if using mkcert)
+make clean
+make
+./proxy
+curl -v -x http://localhost:8080 http://example.com
+curl -v -x http://localhost:8080 https://example.com
