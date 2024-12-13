@@ -1,5 +1,8 @@
 SETTING UP PAC FILE
 
+Note: setting up the PAC file might be optional, but if the proxy doesn't work for some reason
+      setting up the PAC behavior might fix it.
+
 Create a file that ends with a .pac extension. There is an example of this in the repo and 
 that can be used for setup.
 
